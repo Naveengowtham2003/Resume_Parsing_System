@@ -1,1 +1,0 @@
-Day 3: Add technical resume and project-writing guidance documents here.
