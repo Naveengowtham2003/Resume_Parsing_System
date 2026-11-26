@@ -408,3 +408,227 @@ The dashboard brings together the outputs of the different modules and presents 
 
 ---
 
+## AI-Powered Resume Review
+
+ResumeIQ can integrate with Ollama to run a Large Language Model locally.
+
+### Step 1: Install Ollama
+
+Download Ollama from:
+
+https://ollama.com/
+
+### Step 2: Download the Model
+
+For the configured Llama 3.2 model, run:
+
+```bash
+ollama pull llama3.2
+```
+
+### Step 3: Start Ollama
+
+```bash
+ollama serve
+```
+
+If Ollama is already running as a background service, starting another server may report that the port is already in use.
+
+### Step 4: Verify the Ollama Service
+
+Open PowerShell and execute:
+
+```powershell
+Invoke-RestMethod http://127.0.0.1:11434/api/tags
+```
+
+The service should return information about the locally available models.
+
+### Step 5: Run ResumeIQ
+
+In another terminal, activate the project virtual environment and launch:
+
+```bash
+streamlit run app.py
+```
+
+### Optional Configuration
+
+The AI assistant can be configured using environment variables, if supported by the installed version:
+
+| Variable | Purpose | Example |
+|---|---|---|
+| `OLLAMA_BASE_URL` | Ollama server address | `http://127.0.0.1:11434` |
+| `OLLAMA_MODEL` | Model identifier | `llama3.2` |
+| `OLLAMA_TIMEOUT` | Request timeout in seconds | `600` |
+
+Ollama is optional. Core parsing and scoring functionality should be treated separately from the local AI review dependency.
+
+---
+
+## ATS Scoring Methodology
+
+ResumeIQ uses an application-defined scoring approach to evaluate resume quality.
+
+The analysis considers different aspects of the resume, including:
+
+- Contact information completeness
+- Skills information
+- Work experience
+- Educational qualifications
+- Projects and certifications
+- Resume content and organization
+
+The application combines these factors into an overall score and presents supporting category-level feedback.
+
+### Important Limitations
+
+- The score is an estimate, not an official ATS result.
+- Different employers use different ATS products and configurations.
+- Keyword matching does not guarantee job suitability.
+- A high score does not guarantee an interview or selection.
+- AI-generated feedback may occasionally be inaccurate and should be reviewed.
+
+---
+
+## Supported File Formats
+
+ResumeIQ is designed to process common resume document formats, subject to the installed document-processing dependencies.
+
+| Format | Extension |
+|---|---|
+| PDF | `.pdf` |
+| Microsoft Word | `.docx` |
+| Plain Text | `.txt` |
+| Markdown | `.md` |
+| Rich Text Format | `.rtf` |
+
+Scanned PDFs may require OCR support if their content is not available as extractable text. Legacy `.doc` files may require an additional conversion or extraction mechanism.
+
+---
+
+## Deployment
+
+ResumeIQ can be deployed as a Streamlit application.
+
+### Local Deployment
+
+Run:
+
+```bash
+streamlit run app.py
+```
+
+### Streamlit Community Cloud
+
+A typical deployment workflow is:
+
+1. Push the project to a GitHub repository.
+2. Sign in to Streamlit Community Cloud.
+3. Connect the GitHub repository.
+4. Select the repository and branch.
+5. Specify `app.py` as the application entry point.
+6. Configure any required dependencies and application settings.
+7. Deploy the application.
+
+**Important:** A locally installed Ollama service and its downloaded model are not automatically available on Streamlit Community Cloud. The AI review functionality requires a separately hosted, securely accessible inference service or must be disabled in that environment.
+
+---
+
+## Security and Privacy
+
+Resume documents can contain personally identifiable information. Handle uploaded files responsibly.
+
+Recommended practices:
+
+- Do not commit real resumes or personal documents to GitHub.
+- Never commit API keys, credentials, or `.env` files.
+- Exclude virtual environments and model binaries from version control.
+- Avoid logging sensitive resume content.
+- Inform users how uploaded files and extracted information are processed.
+- Use secure endpoints when connecting to external AI services.
+
+ResumeIQ should not be considered a secure document-storage platform unless additional storage, access-control, and data-retention mechanisms are implemented.
+
+---
+
+## Future Enhancements
+
+Potential improvements for future versions include:
+
+- Advanced NLP-based resume section classification.
+- Named Entity Recognition for more accurate information extraction.
+- Semantic job-description matching using sentence embeddings.
+- Vector database integration for semantic retrieval.
+- Retrieval-Augmented Generation (RAG) for contextual resume recommendations.
+- Multi-resume comparison and candidate ranking.
+- Resume improvement suggestions tailored to specific job roles.
+- OCR support for scanned documents.
+- Additional document export formats.
+- Cloud-hosted LLM integration.
+- User authentication and analysis history.
+- Automated resume formatting and rewriting assistance.
+
+---
+
+## Contributing
+
+Contributions, suggestions, and bug reports are welcome.
+
+To contribute:
+
+1. Fork the repository.
+2. Create a feature branch.
+
+```bash
+git checkout -b feature/your-feature-name
+```
+
+3. Implement your changes.
+4. Commit your changes.
+
+```bash
+git commit -m "Add: describe your feature"
+```
+
+5. Push your branch.
+
+```bash
+git push origin feature/your-feature-name
+```
+
+6. Open a Pull Request.
+
+---
+
+## License
+
+This project is currently available for personal and educational use.
+
+A formal open-source license should be added to the repository before specifying permissions for redistribution, modification, or commercial use.
+
+---
+
+## Author
+
+**Naveen Gowtham K T**
+
+B.E. Computer Science and Engineering
+
+**Areas of Interest:**
+- Artificial Intelligence and Machine Learning
+- Generative AI and Large Language Models
+- Python Development
+- Natural Language Processing
+- AI-Powered Applications
+
+### Project
+
+**ResumeIQ – AI-Powered Resume Parsing and ATS Analysis Platform**
+
+GitHub Repository:  
+https://github.com/Naveengowtham2003/Resume_Parsing_System
+
+---
+
+*ResumeIQ — Making Resume Analysis Smarter, Structured, and More Accessible.*
